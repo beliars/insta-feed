@@ -1,4 +1,10 @@
 feed-section {
 
+  .ownername {
+    text-transform: capitalize;
+  }
 
+  .likes-button {
+    cursor: pointer;
+  }
 }

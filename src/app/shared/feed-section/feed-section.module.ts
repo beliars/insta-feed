@@ -1,27 +1,13 @@
 import { NgModule }            from '@angular/core';
-import { CommonModule }        from '@angular/common';
-import { FormsModule }         from '@angular/forms';
-
 import { FeedSectionComponent } from './feed-section.component';
-
-import { FeedSectionHeaderModule } from './feed-section-header/feed-section-header.module';
-import { FeedSectionContentModule } from './feed-section-content/feed-section-content.module';
-import { FeedSectionFooterModule } from './feed-section-footer/feed-section-footer.module';
+import { SharedModule } from '../shared.module';
 
 @NgModule({
-  imports:      [ CommonModule,
-                  FormsModule,
-                  FeedSectionHeaderModule,
-                  FeedSectionContentModule,
-                  FeedSectionFooterModule
-                ],
+  imports:      [ SharedModule ],
   
   declarations: [ FeedSectionComponent ],
   
-  exports:      [ CommonModule,
-                  FormsModule,
-                  FeedSectionComponent,
-                ]
+  exports:      [ FeedSectionComponent ]
 })
 
 export class FeedSectionModule { }

@@ -1,3 +1,37 @@
-<feed-section-header></feed-section-header>
-<feed-section-content></feed-section-content>
-<feed-section-footer></feed-section-footer>
+<ion-card>
+
+  <ion-item>
+    <ion-avatar item-left>
+      <img src="https://flickr.com/buddyicons/{{ photo.owner }}.jpg">
+      <!--<img src="assets/img/marty-avatar.png">-->
+    </ion-avatar>
+    <h2 class="ownername">{{ photo.ownername }}</h2>
+  </ion-item>
+
+  <img src="https://farm{{ photo.farm }}.staticflickr.com/{{ photo.server }}/{{ photo.id }}_{{ photo.secret }}_b.jpg">
+
+  <ion-card-content>
+    <p>{{ photo.title }}</p>
+  </ion-card-content>
+
+  <ion-row>
+    <ion-col>
+      <button class="likes-button" (click)="onLike()" ion-button icon-left clear small>
+        <ion-icon name="thumbs-up"></ion-icon>
+        <div>{{ likes.quantity }} {{ likes.text }}</div>
+      </button>
+    </ion-col>
+    <ion-col>
+      <button ion-button icon-left clear small>
+        <ion-icon name="text"></ion-icon>
+        <div>Comments</div>
+      </button>
+    </ion-col>
+    <ion-col center text-center>
+      <ion-note>
+        Uploaded {{ photo.datetaken | date }}
+      </ion-note>
+    </ion-col>
+  </ion-row>
+
+</ion-card>

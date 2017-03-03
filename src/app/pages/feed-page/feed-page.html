@@ -9,7 +9,7 @@
 
 <ion-content>
 
-  <feed-section></feed-section>
+  <feed-section *ngFor="let photo of photosInfoList" [photo]='photo'></feed-section>
 
 </ion-content>
 

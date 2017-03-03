@@ -1,13 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { HttpModule } from '@angular/http';
-
-
-import { RestangularModule } from 'ng2-restangular';
 import 'rxjs/Rx';
 
+import { RestangularModule } from 'ng2-restangular';
+import { ApiService } from '../services/api.service';
+
 export function restangular (RestangularProvider) {
-  RestangularProvider.setBaseUrl('http://jsonplaceholder.typicode.com/');
+  RestangularProvider.setBaseUrl('https://api.flickr.com/services/rest/');
+  RestangularProvider.setDefaultRequestParams({
+    api_key: 'b08dbd5ccc5641063da511106bb3d48b'
+  });
   RestangularProvider.setRestangularFields({
     id: "_id"
   });
@@ -21,7 +24,7 @@ export function restangular (RestangularProvider) {
     HttpModule,
     RestangularModule.forRoot(restangular),
   ],
-  providers: [],
+  providers: [ApiService],
 })
 
 export class CoreModule {

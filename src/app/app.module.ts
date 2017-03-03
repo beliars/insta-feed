@@ -18,6 +18,7 @@ import { FeedSectionModule } from './shared/feed-section/feed-section.module';
   imports: [
     CoreModule,
     CommonModule,
+    SharedModule,
     FeedSectionModule,
     
     IonicModule.forRoot(MyApp)

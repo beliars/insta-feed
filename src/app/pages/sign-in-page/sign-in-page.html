@@ -9,25 +9,27 @@
 
 <ion-content>
 
+  <h1>Sign In</h1>
+
   <form class="saveForm" name="saveForm" #saveForm="ngForm" (ngSubmit)="onSubmit(saveForm)">
     <ion-item>
       <ion-label>Username</ion-label>
-      <ion-input type="text" #username="ngModel" [(ngModel)]="loginData.username" name="username" required></ion-input>
+      <ion-input type="text" #username="ngModel" [(ngModel)]="signInData.username" name="username" required></ion-input>
     </ion-item>
     <div *ngIf="username.errors && (username.dirty || username.touched)"
       class="error-box">Username is required
     </div>
     <ion-item>
       <ion-label>Password</ion-label>
-      <ion-input type="password" #password="ngModel" [(ngModel)]="loginData.password" name="password" required></ion-input>
+      <ion-input type="password" #password="ngModel" [(ngModel)]="signInData.password" name="password" required></ion-input>
     </ion-item>
     <div *ngIf="password.errors && (password.dirty || password.touched)"
       class="error-box">Password is required
     </div>
-    <div class="buttons-wrapper">
-      <button ion-button color="secondary" type="submit">Sign In</button>
-      <button ion-button type="button" (click)="register()">Sign Up</button>
+    <div class="btn-wrapper">
+      <button ion-button block color="secondary" type="submit">Sign In</button>
     </div>
+    <a class="sign-up" (click)="toSignUp()">Register</a>
   </form>
 
 </ion-content>

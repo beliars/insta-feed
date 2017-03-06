@@ -2,16 +2,16 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AuthService } from '../../services/auth.service';
 import { FeedPage } from '../feed-page/feed-page';
-import { RegisterPage } from '../register-page/register-page';
+import { SignUpPage } from '../sign-up-page/sign-up-page';
 import { LoadingController } from 'ionic-angular';
 
 @Component({
-  selector: 'login-page',
-  templateUrl: 'login-page.html'
+  selector: 'sign-in-page',
+  templateUrl: 'sign-in-page.html'
 })
-export class LoginPage {
+export class SignInPage {
   
-  private loginData = {
+  private signInData = {
     username: '',
     password: ''
   };
@@ -25,7 +25,8 @@ export class LoginPage {
   
   onSubmit(form) {
     if (form.valid) {
-      console.log(this.loginData);
+      console.log(this.signInData);
+      this.authService.signInUser(this.signInData);
       let loader = this.loadingCtrl.create({
         content: "Please wait...",
         duration: 2500
@@ -37,14 +38,14 @@ export class LoginPage {
     }
   }
   
-  register() {
+  toSignUp() {
     let loader = this.loadingCtrl.create({
       content: "Please wait...",
       duration: 1200
     });
     loader.present();
     setTimeout(() => {
-      this.navCtrl.setRoot(RegisterPage);
+      this.navCtrl.setRoot(SignUpPage);
     }, 1200);
   }
   

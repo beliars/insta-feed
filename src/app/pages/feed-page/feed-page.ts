@@ -20,7 +20,6 @@ export class FeedPage {
     this.apiService.getPhotos().subscribe();
     this.photos$ = this.apiService.photos$;
     this.subscribers = this.photos$.subscribe(res => {
-      console.log(res);
       this.photosInfoList = res;
     });
   }

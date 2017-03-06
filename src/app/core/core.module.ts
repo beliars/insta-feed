@@ -5,6 +5,7 @@ import 'rxjs/Rx';
 
 import { RestangularModule } from 'ng2-restangular';
 import { ApiService } from '../services/api.service';
+import { AuthService } from '../services/auth.service';
 
 export function restangular (RestangularProvider) {
   RestangularProvider.setBaseUrl('https://api.flickr.com/services/rest/');
@@ -24,7 +25,7 @@ export function restangular (RestangularProvider) {
     HttpModule,
     RestangularModule.forRoot(restangular),
   ],
-  providers: [ApiService],
+  providers: [ApiService, AuthService],
 })
 
 export class CoreModule {

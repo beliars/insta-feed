@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Register page header</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <form class="saveForm" name="saveForm" #saveForm="ngForm" (ngSubmit)="onSubmit(saveForm)">
+    <ion-item>
+      <ion-label>Username</ion-label>
+      <ion-input type="text" #username="ngModel" [(ngModel)]="registerData.username" name="username" required></ion-input>
+    </ion-item>
+    <div *ngIf="username.errors && (username.dirty || username.touched)"
+      class="error-box">Username is required
+    </div>
+    <ion-item>
+      <ion-label>Password</ion-label>
+      <ion-input type="password" #password="ngModel" [(ngModel)]="registerData.password" name="password" required></ion-input>
+    </ion-item>
+    <div *ngIf="password.errors && (password.dirty || password.touched)"
+      class="error-box">Password is required
+    </div>
+    <div class="buttons-wrapper">
+      <button ion-button color="secondary" type="submit">Sign Up</button>
+      <button ion-button type="button" (click)="toLogin()">To login page</button>
+    </div>
+  </form>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>Footer</ion-title>
+  </ion-toolbar>
+</ion-footer>

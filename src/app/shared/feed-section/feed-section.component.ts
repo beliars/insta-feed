@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'feed-section',
@@ -13,7 +12,7 @@ export class FeedSectionComponent {
     touched: false
   };
   
-  constructor(private apiService: ApiService) {
+  constructor() {
   }
   
   ngOnInit() {

@@ -13,11 +13,11 @@
 
   <form class="saveForm" name="saveForm" #saveForm="ngForm" (ngSubmit)="onSubmit(saveForm)">
     <ion-item>
-      <ion-label>Username</ion-label>
-      <ion-input type="text" #username="ngModel" [(ngModel)]="signInData.username" name="username" required></ion-input>
+      <ion-label>Email</ion-label>
+      <ion-input type="email" #email="ngModel" [(ngModel)]="signInData.email" name="email" required></ion-input>
     </ion-item>
-    <div *ngIf="username.errors && (username.dirty || username.touched)"
-      class="error-box">Username is required
+    <div *ngIf="email.errors && (email.dirty || email.touched)"
+      class="error-box">Email is required
     </div>
     <ion-item>
       <ion-label>Password</ion-label>

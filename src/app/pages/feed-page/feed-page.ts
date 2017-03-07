@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
-import { ApiService } from '../../services/api.service';
+import { FeedService } from '../../services/feed.service';
 
 @Component({
   selector: 'feed-page',
@@ -9,7 +9,7 @@ import { ApiService } from '../../services/api.service';
 })
 export class FeedPage {
 
-  constructor(public navCtrl: NavController, private apiService: ApiService) {
+  constructor(public navCtrl: NavController, private feedService: FeedService) {
   }
   
   private photos$;
@@ -17,8 +17,8 @@ export class FeedPage {
   private photosInfoList;
   
   ngOnInit() {
-    this.apiService.getPhotos().subscribe();
-    this.photos$ = this.apiService.photos$;
+    this.feedService.getPhotos().subscribe();
+    this.photos$ = this.feedService.photos$;
     this.subscribers = this.photos$.subscribe(res => {
       this.photosInfoList = res;
     });

@@ -1,19 +1,39 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import { ToastController } from 'ionic-angular';
 import 'rxjs/Rx';
 
-import { RestangularModule } from 'ng2-restangular';
-import { ApiService } from '../services/api.service';
+import { RestangularModule, Restangular } from 'ng2-restangular';
+import { FeedService } from '../services/feed.service';
 import { AuthService } from '../services/auth.service';
+import { RestangularFlickrFactory, RESTANGULAR_FLICKR } from './flickr.restangular.config';
 
-export function restangular (RestangularProvider) {
-  RestangularProvider.setBaseUrl('https://api.flickr.com/services/rest/');
+export function restangular (RestangularProvider, ToastController) {
+  RestangularProvider.setBaseUrl('http://2muchcoffee.com:53000/api/');
   RestangularProvider.setDefaultRequestParams({
-    api_key: 'b08dbd5ccc5641063da511106bb3d48b'
   });
-  RestangularProvider.setRestangularFields({
-    id: "_id"
+  RestangularProvider.setDefaultHeaders({'Content-Type': 'application/json',
+                                         'Accept': 'application/json'});
+  //RestangularProvider.setRestangularFields({
+  //  id: "_id"
+  //});
+  RestangularProvider.addErrorInterceptor((response, subject, responseHandler) => {
+    if (response.status) {
+      var errorMsg = response.statusText;
+      if(response.data.error.message) {
+        errorMsg = response.data.error.message;
+      }
+      let toast = ToastController.create({
+        message: errorMsg,
+        duration: 5000,
+        position: 'middle',
+        cssClass: 'toast-error'
+      });
+      toast.present();
+      return false; // error handled
+    }
+    return true; // error not handled
   });
 }
 
@@ -23,9 +43,9 @@ export function restangular (RestangularProvider) {
   imports: [
     BrowserModule,
     HttpModule,
-    RestangularModule.forRoot(restangular),
+    RestangularModule.forRoot([ToastController], restangular),
   ],
-  providers: [ApiService, AuthService],
+  providers: [FeedService, AuthService, { provide: RESTANGULAR_FLICKR, useFactory:  RestangularFlickrFactory, deps: [Restangular] }],
 })
 
 export class CoreModule {

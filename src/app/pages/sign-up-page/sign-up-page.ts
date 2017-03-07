@@ -5,6 +5,8 @@ import { FeedPage } from '../feed-page/feed-page';
 import { SignInPage } from '../sign-in-page/sign-in-page';
 import { LoadingController } from 'ionic-angular';
 
+import * as _ from 'lodash';
+
 @Component({
   selector: 'sign-up-page',
   templateUrl: 'sign-up-page.html'
@@ -12,13 +14,15 @@ import { LoadingController } from 'ionic-angular';
 export class SignUpPage {
   
   private signUpData = {
+    email: '',
     username: '',
-    password: '',
-    email: ''
+    password: ''
   };
   
-  constructor(public navCtrl: NavController, private authService: AuthService,
-              public loadingCtrl: LoadingController) {
+  constructor(
+    public navCtrl: NavController, private authService: AuthService,
+    public loadingCtrl: LoadingController
+  ) {
   }
   
   ngOnInit() {
@@ -26,27 +30,26 @@ export class SignUpPage {
   
   onSubmit(form) {
     if (form.valid) {
-      console.log(this.signUpData);
-      let loader = this.loadingCtrl.create({
-        content: "Please wait...",
-        duration: 2500
+      this.authService.signUpUser(this.signUpData)
+      .withLatestFrom(this.authService.currentUser$)
+      .subscribe(([res, currUser]: any) => {
+        let currentUser = _.find(res, {'userId': currUser.id});
+        if (currentUser.id) {          // <--- this is user Token
+          let loader = this.loadingCtrl.create({
+            content: "Logging in...",
+            duration: 2000
+          });
+          loader.present();
+          setTimeout(() => {
+            this.navCtrl.setRoot(FeedPage);
+          }, 2500);
+        }
       });
-      loader.present();
-      setTimeout(() => {
-        this.navCtrl.setRoot(FeedPage);
-      }, 2500);
     }
   }
   
   toSignIn() {
-    let loader = this.loadingCtrl.create({
-      content: "Please wait...",
-      duration: 1000
-    });
-    loader.present();
-    setTimeout(() => {
-      this.navCtrl.setRoot(SignInPage);
-    }, 1200);
+    this.navCtrl.setRoot(SignInPage);
   }
   
   

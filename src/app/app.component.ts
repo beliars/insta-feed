@@ -39,19 +39,11 @@ export class MyApp {
       Splashscreen.hide();
     });
   }
-
+  
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    let loader = this.loadingCtrl.create({
-      content: "Please wait...",
-      duration: 1200
-    });
-    loader.present();
-    setTimeout(() => {
-      this.nav.setRoot(page.component);
-    }, 2000);
-    
+    this.nav.setRoot(page.component);
   }
   
   

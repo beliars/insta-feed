@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'feed-section',
@@ -12,10 +14,16 @@ export class FeedSectionComponent {
     touched: false
   };
   
-  constructor() {
+  constructor(private authService: AuthService, private sessionService: SessionService) {
   }
   
   ngOnInit() {
+  }
+  
+  test() {
+    this.sessionService.getAccessToken().subscribe(res => console.log(res));
+    this.authService.currentToken$.subscribe(res => console.log(res));
+    this.authService.currentUser$.subscribe(res => console.log(res));
   }
   
   onLike() {

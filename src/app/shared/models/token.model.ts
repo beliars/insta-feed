@@ -1,7 +1,8 @@
-export class UserModel {
-  username: string = null;
-  email: string = null;
+export class TokenModel {
   id: string = null;
+  ttl: number = null;
+  created: string = null;
+  userId: string = null;
   
   constructor(obj?) {
     for (let field in obj) {

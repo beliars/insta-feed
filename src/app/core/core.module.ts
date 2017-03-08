@@ -8,6 +8,7 @@ import { RestangularModule, Restangular } from 'ng2-restangular';
 import { FeedService } from '../services/feed.service';
 import { AuthService } from '../services/auth.service';
 import { RestangularFlickrFactory, RESTANGULAR_FLICKR } from './flickr.restangular.config';
+import { SessionService } from '../services/session.service';
 
 export function restangular (RestangularProvider, ToastController) {
   RestangularProvider.setBaseUrl('http://2muchcoffee.com:53000/api/');
@@ -15,9 +16,6 @@ export function restangular (RestangularProvider, ToastController) {
   });
   RestangularProvider.setDefaultHeaders({'Content-Type': 'application/json',
                                          'Accept': 'application/json'});
-  //RestangularProvider.setRestangularFields({
-  //  id: "_id"
-  //});
   RestangularProvider.addErrorInterceptor((response, subject, responseHandler) => {
     if (response.status) {
       var errorMsg = response.statusText;
@@ -45,7 +43,7 @@ export function restangular (RestangularProvider, ToastController) {
     HttpModule,
     RestangularModule.forRoot([ToastController], restangular),
   ],
-  providers: [FeedService, AuthService, { provide: RESTANGULAR_FLICKR, useFactory:  RestangularFlickrFactory, deps: [Restangular] }],
+  providers: [FeedService, AuthService, SessionService, { provide: RESTANGULAR_FLICKR, useFactory:  RestangularFlickrFactory, deps: [Restangular] }],
 })
 
 export class CoreModule {

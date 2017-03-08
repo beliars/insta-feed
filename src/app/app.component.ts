@@ -6,6 +6,7 @@ import { SignInPage } from './pages/sign-in-page/sign-in-page';
 import { SignUpPage } from './pages/sign-up-page/sign-up-page';
 import { FeedPage } from './pages/feed-page/feed-page';
 import { AuthService } from './services/auth.service';
+import { RootPage } from './pages/root-page/root-page';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { AuthService } from './services/auth.service';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = SignInPage;
+  rootPage: any = RootPage;
 
   pages: Array<{title: string, component: any}>;
 

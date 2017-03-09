@@ -1,5 +1,5 @@
 {
-  "name": "ionic-hello-world",
+  "name": "kickstagram",
   "author": "Ionic Framework",
   "homepage": "http://ionicframework.com/",
   "private": true,
@@ -50,5 +50,5 @@
       "locator": "ios"
     }
   ],
-  "description": "insta-feed: An Ionic project"
+  "description": "kickstagram: An Ionic project"
 }

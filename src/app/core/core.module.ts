@@ -10,12 +10,22 @@ import { AuthService } from '../services/auth.service';
 import { RestangularFlickrFactory, RESTANGULAR_FLICKR } from './flickr.restangular.config';
 import { SessionService } from '../services/session.service';
 
-export function restangular (RestangularProvider, ToastController) {
+export function restangular (RestangularProvider, ToastController, SessionService) {
   RestangularProvider.setBaseUrl('http://2muchcoffee.com:53000/api/');
-  RestangularProvider.setDefaultRequestParams({
+  
+  RestangularProvider.addFullRequestInterceptor((element, operation, path, url, headers, params)=> {
+    SessionService.getAccessToken().subscribe(token => {
+      let tokenId;
+      if(token) tokenId = token.id;
+      if(tokenId) headers.Authorization = `Bearer ${tokenId}`;
+      return {
+        params: Object.assign({}, params, {sort:"name"}),
+        headers: headers,
+        element: element
+      }
+    });
   });
-  RestangularProvider.setDefaultHeaders({'Content-Type': 'application/json',
-                                         'Accept': 'application/json'});
+  
   RestangularProvider.addErrorInterceptor((response, subject, responseHandler) => {
     if (response.status) {
       var errorMsg = response.statusText;
@@ -41,7 +51,7 @@ export function restangular (RestangularProvider, ToastController) {
   imports: [
     BrowserModule,
     HttpModule,
-    RestangularModule.forRoot([ToastController], restangular),
+    RestangularModule.forRoot([ToastController, SessionService], restangular),
   ],
   providers: [FeedService, AuthService, SessionService, { provide: RESTANGULAR_FLICKR, useFactory:  RestangularFlickrFactory, deps: [Restangular] }],
 })

@@ -48,7 +48,7 @@ export class AuthService {
     });
   }
   
-  checkToken(token) {
-    
-  }
+  //checkToken(tokenId) {
+  //  return this.restangular.all('tokens', tokenId).one('exists').get();
+  //}
 }

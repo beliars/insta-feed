@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { FeedPage } from '../feed-page/feed-page';
 import { SignInPage } from '../sign-in-page/sign-in-page';
 import { SessionService } from '../../services/session.service';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -11,11 +12,12 @@ import { SessionService } from '../../services/session.service';
 })
 export class RootPage {
 
-  constructor(public navCtrl: NavController, public sessionService: SessionService) {
+  constructor(public navCtrl: NavController,
+              public sessionService: SessionService,
+              public authService: AuthService) {
   }
   
   ionViewCanEnter() {
-    
   }
   
   ngOnInit() {
@@ -31,7 +33,7 @@ export class RootPage {
       }
     });
     
-    //this.navCtrl.setRoot(FeedPage);
+    //this.navCtrl.setRoot(SignInPage);
   }
   
   ngOnDestroy() {

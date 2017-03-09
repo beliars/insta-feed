@@ -9,8 +9,6 @@ export class SessionService {
   }
   
   setAccessToken(token) {
-    //this.storage.ready().then(() => {
-    //});
     Observable.fromPromise(this.storage.ready())
     .subscribe(() => this.storage.set('userAccessToken', token));
     
@@ -24,7 +22,9 @@ export class SessionService {
   }
   
   removeAccessToken() {
-    this.storage.remove('userAccessToken');
+    return Observable.fromPromise(this.storage.ready())
+    .switchMap(() => {
+      return this.storage.remove('userAccessToken');
+    });
   }
-  
 }

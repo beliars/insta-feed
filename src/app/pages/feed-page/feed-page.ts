@@ -4,6 +4,7 @@ import { NavController } from 'ionic-angular';
 import { FeedService } from '../../services/feed.service';
 import { SessionService } from '../../services/session.service';
 import { SignInPage } from '../sign-in-page/sign-in-page';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'feed-page',
@@ -11,7 +12,8 @@ import { SignInPage } from '../sign-in-page/sign-in-page';
 })
 export class FeedPage {
 
-  constructor(public navCtrl: NavController, private feedService: FeedService, private sessionService: SessionService) {
+  constructor(public navCtrl: NavController, private feedService: FeedService, private sessionService: SessionService,
+              private authService: AuthService) {
   }
   
   private photos$;
@@ -40,6 +42,16 @@ export class FeedPage {
     this.subscribers = this.photos$.subscribe(res => {
       this.photosInfoList = res;
     });
+  }
+  
+  getToken() {
+    this.sessionService.getAccessToken().subscribe(res => console.log(res));
+    this.authService.currentToken$.subscribe(res => console.log(res));
+    this.authService.currentUser$.subscribe(res => console.log(res));
+  }
+  
+  removeToken() {
+    this.sessionService.removeAccessToken().subscribe(() => this.navCtrl.setRoot(SignInPage));
   }
   
   ngOnDestroy() {

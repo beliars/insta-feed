@@ -25,7 +25,7 @@ export class SignInPage {
   
   onSubmit(form) {
     if (form.valid) {
-      this.authService.signInUser(this.signInData)
+      let subscriber = this.authService.signInUser(this.signInData)
       .subscribe(() => {
         let loader = this.loadingCtrl.create({
           content: "Logging in...",
@@ -35,6 +35,7 @@ export class SignInPage {
         setTimeout(() => {
           this.navCtrl.setRoot(FeedPage);
         }, 2500);
+        subscriber.unsubscribe();
       });
     }
   }
